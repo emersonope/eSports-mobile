@@ -13,7 +13,7 @@ import { GameParams } from '../../@types/navigation';
 
 import { Heading } from '../../components/Heading';
 import { Background } from '../../components/Background';
-// import { DuoCard, DuoCardProps } from '../../components/DuoCard';
+import { DuoCard } from '../../components/DuoCard';
 
 export function Game() {
 
@@ -51,13 +51,15 @@ export function Game() {
         <Image
           source={{ uri: game.bannerUrl }}
           style={styles.cover}
-          resizeMode='cover'
+          resizeMode="cover"
         />
 
         <Heading
           title={game.title}
           subtitle="Conecte-se e comece a jogar!"
         />
+
+        <DuoCard />
 
       </SafeAreaView>
     </Background>
