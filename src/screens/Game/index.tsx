@@ -13,11 +13,11 @@ import { GameParams } from '../../@types/navigation';
 
 import { Heading } from '../../components/Heading';
 import { Background } from '../../components/Background';
-import { DuoCard } from '../../components/DuoCard';
+import { DuoCard, DuoCardProps } from '../../components/DuoCard';
 
 export function Game() {
 
-  // const [duos, setDuos] = useState<DuoCardProps[]>([]);
+  const [duos, setDuos] = useState<DuoCardProps[]>([]);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -26,6 +26,12 @@ export function Game() {
   function handleGoback() {
     navigation.goBack();
   }
+
+  useEffect(() => {
+    fetch(`http://192.168.15.7:3333/games/${game.id}/ads`)
+      .then(response => response.json())
+      .then(data => setDuos(data))
+  })
 
   return (
     <Background>
@@ -59,7 +65,13 @@ export function Game() {
           subtitle="Conecte-se e comece a jogar!"
         />
 
-        <DuoCard />
+        <FlatList
+          data={duos}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <DuoCard data={item} />
+          )}
+        />
 
       </SafeAreaView>
     </Background>
